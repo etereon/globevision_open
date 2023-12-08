@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b609bca5-68e6-4123-b660-02613714587c}</ProjectGuid>
+    <RootNamespace>client</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)build\</OutDir>
+    <TargetExt>.asi</TargetExt>
+    <TargetName>globevision</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)build\</OutDir>
+    <TargetExt>.asi</TargetExt>
+    <TargetName>globevision</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>libs\;$(SolutionDir)shared\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>exported.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>libs\;$(SolutionDir)shared\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>exported.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\shared\simple_packet\simple_packet.hpp" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="dllmain.hpp" />
+    <ClInclude Include="events.hpp" />
+    <ClInclude Include="exported.hpp" />
+    <ClInclude Include="libs\mh_wrap\mh_wrap.hpp" />
+    <ClInclude Include="libs\MinHook\MinHook.h" />
+    <ClInclude Include="libs\MinHook\src\buffer.h" />
+    <ClInclude Include="libs\MinHook\src\hde\hde32.h" />
+    <ClInclude Include="libs\MinHook\src\hde\hde64.h" />
+    <ClInclude Include="libs\MinHook\src\hde\pstdint.h" />
+    <ClInclude Include="libs\MinHook\src\hde\table32.h" />
+    <ClInclude Include="libs\MinHook\src\hde\table64.h" />
+    <ClInclude Include="libs\MinHook\src\trampoline.h" />
+    <ClInclude Include="libs\RakNet\BitStream.h" />
+    <ClInclude Include="libs\RakNet\DS_HuffmanEncodingTree.h" />
+    <ClInclude Include="libs\RakNet\DS_HuffmanEncodingTreeNode.h" />
+    <ClInclude Include="libs\RakNet\DS_LinkedList.h" />
+    <ClInclude Include="libs\RakNet\DS_List.h" />
+    <ClInclude Include="libs\RakNet\DS_Map.h" />
+    <ClInclude Include="libs\RakNet\DS_OrderedList.h" />
+    <ClInclude Include="libs\RakNet\DS_Queue.h" />
+    <ClInclude Include="libs\RakNet\NetworkTypes.h" />
+    <ClInclude Include="libs\RakNet\PacketEnumerations.h" />
+    <ClInclude Include="libs\RakNet\PacketPriority.h" />
+    <ClInclude Include="libs\RakNet\PluginInterface.h" />
+    <ClInclude Include="libs\RakNet\RakClientInterface.h" />
+    <ClInclude Include="libs\RakNet\StringCompressor.h" />
+    <ClInclude Include="network.hpp" />
+    <ClInclude Include="process.hpp" />
+    <ClInclude Include="storage.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\shared\simple_packet\simple_packet.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="events.cpp" />
+    <ClCompile Include="exported.cpp" />
+    <ClCompile Include="libs\mh_wrap\mh_wrap.cpp" />
+    <ClCompile Include="libs\MinHook\src\buffer.c" />
+    <ClCompile Include="libs\MinHook\src\hde\hde32.c" />
+    <ClCompile Include="libs\MinHook\src\hde\hde64.c" />
+    <ClCompile Include="libs\MinHook\src\hook.c" />
+    <ClCompile Include="libs\MinHook\src\trampoline.c" />
+    <ClCompile Include="libs\RakNet\BitStream.cpp" />
+    <ClCompile Include="libs\RakNet\DS_HuffmanEncodingTree.cpp" />
+    <ClCompile Include="libs\RakNet\PluginInterface.cpp" />
+    <ClCompile Include="libs\RakNet\StringCompressor.cpp" />
+    <ClCompile Include="network.cpp" />
+    <ClCompile Include="process.cpp" />
+    <ClCompile Include="storage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="exported.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

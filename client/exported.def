@@ -1,0 +1,5 @@
+LIBRARY globevision
+  EXPORTS
+	create_buffer
+	update_buffer
+	get_player_data

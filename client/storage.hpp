@@ -19,9 +19,8 @@ class storage {
 
   static unsigned long __stdcall thread_routine(storage* storage);
 
-  void send_sync(uint16_t player_id, player_t& player);
-  void send_misc(uint16_t player_id, player_t& player);
-  void send_nick(uint16_t player_id, player_t& player);
+  void send_misc(uint16_t player_id);
+  void send_nick(uint16_t player_id);
 
   void send(uint16_t player_id);
 

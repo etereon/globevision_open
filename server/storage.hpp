@@ -18,7 +18,7 @@ class storage {
 
 public:
 
-  void update_player_sync(uint8_t server_id, uint16_t player_id, uint8_t health, uint8_t armor,
+  bool update_player_sync(uint8_t server_id, uint16_t player_id, uint8_t health, uint8_t armor,
 	uint8_t weapon, position_t position, quat_compressed_t quaternion);
 
   void update_player_misc(uint8_t server_id, uint16_t player_id, uint16_t model, uint32_t color);

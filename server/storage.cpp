@@ -4,9 +4,9 @@
 
 storage::storage() {}
 
-void storage::update_player_sync(uint8_t server_id, uint16_t player_id, uint8_t health, uint8_t armor, uint8_t weapon, position_t position, quat_compressed_t quaternion) {
-  if (server_id >= _buffers.size() || player_id >= MAX_PLAYERS || fabsf(position.x) > 3000.f || fabsf(position.y) > 3000.f)
-	return;
+bool storage::update_player_sync(uint8_t server_id, uint16_t player_id, uint8_t health, uint8_t armor, uint8_t weapon, position_t position, quat_compressed_t quaternion) {
+  if (fabsf(position.x) > 3000.f || fabsf(position.y) > 3000.f || health > 100 || armor > 100 || weapon > 64)
+	return false;
 
   auto& buffer = _buffers[server_id];
   auto& data = buffer.players[player_id];
@@ -22,6 +22,7 @@ void storage::update_player_sync(uint8_t server_id, uint16_t player_id, uint8_t 
 	data.model, data.color, data.health, data.armor, data.weapon);
 
   buffer.update_time[player_id] = std::time(nullptr);
+  return true;
 }
 
 void storage::update_player_misc(uint8_t server_id, uint16_t player_id, uint16_t model, uint32_t color) {

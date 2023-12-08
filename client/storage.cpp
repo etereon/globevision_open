@@ -4,49 +4,57 @@
 #include <Windows.h>
 
 unsigned long __stdcall storage::thread_routine(storage* storage) {
+  simple_packet packet(MAX_BUFFER_SIZE);
+
   while (true) {
 	Sleep(300);
 
 	if (!storage->is_ip_listed())
 	  continue;
 
+	size_type final_size = 3;
+
+	packet.reset(false);
+	packet.write<uint8_t>(ID_SET_SERVER_BUFFER);
+	packet.write(static_cast<uint8_t>(storage->_index));
+
 	for (uint16_t i = 0; i < MAX_PLAYERS; ++i) {
 	  Sleep(1);
 
-	  const auto& player = storage->_players[i];
+	  auto& player = storage->_players[i];
+	  const auto& data = player.data;
 
-	  if (!player.updated_sync && !player.updated_misc)
+	  if (!player.updated_sync)
 		continue;
 
-	  storage->send(i);
+	  if (player.updated_misc || player.updated_nick) {
+		storage->send_misc(i);
+		storage->send_nick(i);
+	  }
+
+	  packet.write(i);
+	  packet.write(data.health);
+	  packet.write(data.armor);
+	  packet.write<uint8_t>(data.weapon);
+	  packet.write(data.position);
+	  packet.write(data.quaternion);
+
+	  player.updated_sync = false;
+	  final_size += 21;
 	}
+
+	if (final_size == 3)
+	  continue;
+
+	packet.set_data_size(final_size);
+	network::instance().send(packet);
   }
   return 0;
 }
 
-void storage::send_sync(uint16_t player_id, player_t& player) {
-  if (!player.updated_sync)
-	return;
+void storage::send_misc(uint16_t player_id) {
+  auto& player = _players[player_id];
 
-  auto& data = player.data;
-
-  simple_packet packet(23);
-
-  packet.write<uint8_t>(ID_SET_PLAYER_SYNC);
-  packet.write(static_cast<uint8_t>(_index));
-  packet.write(player_id);
-
-  packet.write(data.health);
-  packet.write(data.armor);
-  packet.write<uint8_t>(data.weapon);
-  packet.write(data.position);
-  packet.write(data.quaternion);
-
-  network::instance().send(packet);
-  player.updated_sync = false;
-}
-
-void storage::send_misc(uint16_t player_id, player_t& player) {
   if (!player.updated_misc)
 	return;
 
@@ -64,7 +72,9 @@ void storage::send_misc(uint16_t player_id, player_t& player) {
   player.updated_misc = false;
 }
 
-void storage::send_nick(uint16_t player_id, player_t& player) {
+void storage::send_nick(uint16_t player_id) {
+  auto& player = _players[player_id];
+
   if (!player.updated_nick)
 	return;
 
@@ -84,9 +94,7 @@ void storage::send_nick(uint16_t player_id, player_t& player) {
 void storage::send(uint16_t player_id) {
   auto& player = _players[player_id];
 
-  send_nick(player_id, player);
-  send_misc(player_id, player);
-  send_sync(player_id, player);
+  // send_sync(player_id, player);
 }
 
 storage::storage() {

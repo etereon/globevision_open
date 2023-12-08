@@ -69,8 +69,8 @@ bool server::start() {
 }
 
 void server::loop() {
-  simple_packet incoming(MAX_REQUEST_SIZE);
-  simple_packet answer(MAX_SIZE_FOR_BUFFER);
+  simple_packet incoming(MAX_BUFFER_SIZE);
+  simple_packet answer(MAX_BUFFER_SIZE);
   while (true) {
 	incoming.reset();
 

@@ -41,20 +41,32 @@ void handling::requests_handler(simple_packet& request, simple_packet& answer) {
 	answer.set_data_size(final_size);
 	break;
   }
-  case ID_SET_PLAYER_SYNC: {
-	if (request.get_data_size() != 23)
+  case ID_SET_SERVER_BUFFER: {
+	const auto size = request.get_data_size();
+	const auto server_id = request.read<uint8_t>();
+
+	if (size < 3 || server_id >= storage.get_ips().size())
 	  break;
 
-	const auto server_id = request.read<uint8_t>();
-	const auto player_id = request.read<uint16_t>();
+	const auto players_count = (size - 3) / 21;
 
-	const auto health = request.read<uint8_t>();
-	const auto armor = request.read<uint8_t>();
-	const auto weapon = request.read<uint8_t>();
-	const auto position = request.read<position_t>();
-	const auto quaternion = request.read<quat_compressed_t>();
+	for (uint16_t i = 0; i < players_count; ++i) {
+	  const auto player_id = request.read<uint16_t>();
 
-	storage.update_player_sync(server_id, player_id, health, armor, weapon, position, quaternion);
+	  if (player_id >= MAX_PLAYERS)
+		break;
+
+	  const auto health = request.read<uint8_t>();
+	  const auto armor = request.read<uint8_t>();
+	  const auto weapon = request.read<uint8_t>();
+	  const auto position = request.read<position_t>();
+	  const auto quaternion = request.read<quat_compressed_t>();
+
+	  if (!storage.update_player_sync(server_id, player_id, health, armor, weapon, position, quaternion)) {
+		break;
+	  }
+	}
+
 	break;
   }
   case ID_SET_PLAYER_MISC: {

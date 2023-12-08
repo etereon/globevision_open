@@ -57,7 +57,7 @@ void exported::update_buffer_internal(buffer_t* buffer) {
 
   network.send(packet);
 
-  const auto answer = network.receive(MAX_SIZE_FOR_BUFFER);
+  const auto answer = network.receive(MAX_BUFFER_SIZE);
 
   if (answer == nullptr) {
 	buffer->update = false;

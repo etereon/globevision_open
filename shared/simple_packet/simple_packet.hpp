@@ -5,7 +5,7 @@
 #include <cstdint>
 
 #define MAX_REQUEST_SIZE 1024
-#define MAX_SIZE_FOR_BUFFER 64512
+#define MAX_BUFFER_SIZE 64512
 
 using size_type = uint16_t;
 

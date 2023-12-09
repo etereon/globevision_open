@@ -30,7 +30,7 @@ player_data_local_t exported::convert_data_to_local(player_data_t const& data) {
 
 unsigned long __stdcall exported::thread_routine(exported* exported) {
   while (true) {
-	Sleep(300);
+	Sleep(100);
 
 	const auto buffers = exported->_buffers;
 

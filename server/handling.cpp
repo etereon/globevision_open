@@ -25,7 +25,7 @@ void handling::requests_handler(simple_packet& request, simple_packet& answer) {
 	  break;
 
 	const auto server_id = request.read<uint8_t>();
-	size_type final_size = 0;
+	size_type final_size = 1;
 
 	for (uint16_t i = 0; i < MAX_PLAYERS; ++i) {
 	  const auto player = storage.get_player_data(server_id, i);

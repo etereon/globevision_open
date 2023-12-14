@@ -6,6 +6,11 @@ function main()
   end
 
   local buffer = gv.create_buffer("80.66.82.168") -- создаём буфер для Arizona RP Page
+
+  if buffer == -1 then -- ошибка инициализации буфера
+    return thisScript():unload()
+  end
+
   gv.update_buffer(buffer) -- добавляем буфер в очередь на обновление
 
   wait(100) -- ждём заполнение буфера (в зависимости от интернета происходит за 10-100мс)

@@ -16,15 +16,15 @@
 2. При старте сервер выделяет под каждый IP-адрес свой буфер, который содержит в себе структуры MAX_PLAYERS = 1005 игроков следующего вида:
 ```cpp
 struct player_data_t {
-         uint8_t updated : 1; // если == 1, значит игрок был обновлён в течение последних 5-и секунд
-         uint8_t health : 7;
-         uint8_t armor;
-         uint16_t weapon : 6; // текущее оружие
-         uint16_t model : 10; // скин
-         position_t position; // позиция
-         quat_compressed_t quaternion; // поворот
-         uint32_t color;
-         char nickname[20];
+  uint8_t updated : 1; // если == 1, значит игрок был обновлён в течение последних 5-и секунд
+  uint8_t health : 7;
+  uint8_t armor;
+  uint16_t weapon : 6; // текущее оружие
+  uint16_t model : 10; // скин
+  position_t position; // позиция
+  quat_compressed_t quaternion; // поворот
+  uint32_t color;
+  char nickname[20];
  };
  
  // в будущем может быть добавлено больше данных
